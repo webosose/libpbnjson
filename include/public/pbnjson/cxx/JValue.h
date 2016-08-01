@@ -560,12 +560,13 @@ public:
 	//@}
 
 	/**
-	* @brief Remove the element located at the position specified by index from the array.
+	* @brief Remove the element that is located at the position specified by
+	* the index from the given array.
 	*
 	* NOTE: It is unspecified what happens if an invalid index is passed.
-	*       Currently this will result in a log message being recorded
+	*       Currently this will result in a log message.
 	*
-	* @param idx The index at which to remove the element
+	* @param idx The index of the element to be removed
 	* @return True if the element was removed, false if the value is not an array, index is out of bounds,
 	*         or some problem occured in the removal.
 	* @see jarray_remove(jvalue_ref, ssize_t)
