@@ -27,7 +27,7 @@ Below are the tools and libraries (and their minimum versions) required to build
 * gperf 3.0.3
 * lemon 3.7.9
 * make (any version)
-* openwebos/cmake-modules-webos 1.0.0 RC3
+* webosose/cmake-modules-webos 1.0.0 RC3
 * pkg-config 0.26
 * uriparser 0.7.5
 * yajl 1.0.12 or 2.0.4
@@ -51,11 +51,11 @@ The directory under which the files are installed defaults to `/usr/local/webos`
 You can install them elsewhere by supplying a value for `WEBOS_INSTALL_ROOT`
 when invoking `cmake`. For example:
 
-    $ cmake -D WEBOS_INSTALL_ROOT:PATH=$HOME/projects/openwebos ..
+    $ cmake -D WEBOS_INSTALL_ROOT:PATH=$HOME/projects/webosose ..
     $ make
     $ make install
 
-will install the files in subdirectories of `$HOME/projects/openwebos`.
+will install the files in subdirectories of `$HOME/projects/webosose`.
 
 Specifying `WEBOS_INSTALL_ROOT` also causes `pkg-config` to look in that tree
 first before searching the standard locations. You can specify additional
