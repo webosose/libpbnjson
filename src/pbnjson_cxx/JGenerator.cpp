@@ -63,7 +63,9 @@ std::string JGenerator::serialize(const JValue &val, const JSchema &schema)
 {
 	JGenerator serializer;
 	std::string serialized;
-	serializer.toString(val, schema, serialized);
+        if (!serializer.toString(val, schema, serialized)) {
+                serialized = "";
+        }
 	return serialized;
 }
 
