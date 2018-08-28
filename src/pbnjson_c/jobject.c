@@ -806,10 +806,12 @@ bool jobject_put (jvalue_ref obj, jvalue_ref key, jvalue_ref val)
 			break;
 		}
 
+/* This code is commented to support empty key
 		if (UNLIKELY(jstring_size(key) == 0)) {
 			PJ_LOG_ERR("Object instance name is the empty string");
 			break;
 		}
+*/
 
 		if (val == NULL) {
 			PJ_LOG_WARN("Please don't pass in NULL - use jnull() instead");
