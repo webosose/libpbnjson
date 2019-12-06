@@ -38,6 +38,8 @@ typedef struct dom_string_memory_pool {
 	dom_string_memory_chunk *tail;
 } dom_string_memory_pool;
 
+static dom_string_memory_pool* cur_pool = NULL;
+
 // Find chunk that has size + meta information available memory
 static dom_string_memory_chunk* find_chunk_with_available_memory(dom_string_memory_pool* pool, size_t size)
 {
@@ -76,6 +78,26 @@ static dom_string_memory_chunk* dom_string_memory_pool_chunk_create(size_t size)
 	return chunk;
 }
 
+static void update_dom_string_memory_pool (dom_string_memory_chunk* chunk_to_delete)
+{
+	if (cur_pool && cur_pool->tail) {
+		dom_string_memory_chunk *chunk = cur_pool->tail;
+
+		for (; chunk; chunk = chunk->prev) {
+			if (chunk == chunk_to_delete) {
+				chunk = chunk->prev;
+				break;
+			} else if (chunk->prev == chunk_to_delete) {
+				chunk->prev = chunk->prev->prev;
+				break;
+			}
+		}
+		if (cur_pool->tail == chunk_to_delete) {
+			cur_pool->tail = chunk;
+		}
+	}
+}
+
 static void dom_string_memory_pool_chunk_unref(dom_string_memory_chunk* chunk)
 {
 	if (g_atomic_int_dec_and_test(&chunk->ref))
@@ -91,6 +113,7 @@ static void dom_string_memory_pool_chunk_unref(dom_string_memory_chunk* chunk)
 		{
 			madvise(start, end - start, MADV_DONTNEED);
 		}
+		update_dom_string_memory_pool(chunk);
 		free(chunk);
 	}
 }
@@ -99,11 +122,13 @@ dom_string_memory_pool* dom_string_memory_pool_create()
 {
 	dom_string_memory_pool* pool = (dom_string_memory_pool*)malloc(sizeof(dom_string_memory_pool));
 	pool->tail = NULL;
+	cur_pool = pool;
 	return pool;
 }
 
 void dom_string_memory_pool_destroy(dom_string_memory_pool* pool)
 {
+	cur_pool = NULL;
 	free(pool);
 }
 
