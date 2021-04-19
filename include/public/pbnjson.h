@@ -103,9 +103,6 @@ The following examples will show how to use it.
 @snippet TestExample.cpp parse stream sax
 
  */
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include "pbnjson/c/japi.h"
 #include "pbnjson/c/jerror.h"
@@ -115,8 +112,5 @@ extern "C" {
 #include "pbnjson/c/jvalue_stringify.h"
 #include "pbnjson/c/jquery.h"
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* PJSONC_H_ */
