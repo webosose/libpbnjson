@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2018 LG Electronics, Inc.
+// Copyright (c) 2016-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ bool object_pattern_properties_add(ObjectPatternProperties *o, const char *patte
 	// Create a null-terminated copy of the pattern
 	char buffer[pattern_len + 1];
 	memcpy(buffer, pattern, pattern_len);
-	buffer[pattern_len] = 0;
+	buffer[pattern_len] = '\0';
 
 	Entry *entry = g_new0(Entry, 1);
 	entry->validator = v;

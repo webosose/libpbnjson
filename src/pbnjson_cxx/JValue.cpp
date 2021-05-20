@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -149,6 +149,7 @@ const JValue::ArrayIterator::value_type JValue::ArrayIterator::operator*() const
 JValue::ObjectIterator::ObjectIterator()
 	: _parent(0)
 	, _at_end(true)
+	, _it()
 {
 	_key_value.key = 0;
 	_key_value.value = 0;
@@ -377,7 +378,7 @@ bool JValue::operator==(const JValue& other) const
 template <class T>
 static bool numEqual(const JValue& jnum, const T& nativeNum)
 {
-	T num;
+	T num{};
 	if (jnum.asNumber(num) == CONV_OK)
 		return num == nativeNum;
 	return false;

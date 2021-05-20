@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -94,7 +94,7 @@ Validator* object_properties_lookup_n(ObjectProperties *o, char const *key, size
 	// if not found, use generic validator
 	char key_n[key_len + 1];
 	strncpy(key_n, key, key_len);
-	key_n[key_len] = 0;
+	key_n[key_len] = '\0';
 
 	return object_properties_lookup(o, key_n);
 }

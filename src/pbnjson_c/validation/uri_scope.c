@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -136,17 +136,17 @@ char const *unescape_json_pointer(char const *fragment, char *buffer)
 		char ch = *fragment++;
 		switch (ch)
 		{
-		case 0:
-			*cur_pos = 0;
+		case '\0':
+			*cur_pos = '\0';
 			return buffer;
 		case '~':
 			{
 				char ch2 = *fragment++;
 				switch (ch2)
 				{
-				case 0:
+				case '\0':
 					*cur_pos++ = ch;
-					*cur_pos = 0;
+					*cur_pos = '\0';
 					return buffer;
 				case '0':
 					*cur_pos++ = '~';

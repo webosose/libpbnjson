@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ char const *uri_resolver_add_document(UriResolver *u, char const *document)
 
 char const *_check_fragment(char const *fragment)
 {
-	if (!fragment || !fragment[0])
+	if (!(fragment) || (fragment[0] == '\0'))
 		return "#";
 	return fragment;
 }
@@ -137,7 +137,7 @@ bool uri_resolver_steal_documents(UriResolver *u, UriResolver *source)
 	while (g_hash_table_iter_next(&it, (gpointer *) &document, &fragments))
 	{
 		// Skip the root fragment
-		if (!*document)
+		if (*document == '\0')
 			continue;
 
 		gpointer old_fragments = g_hash_table_lookup(u->documents, document);

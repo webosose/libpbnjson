@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2018 LG Electronics, Inc.
+// Copyright (c) 2015-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -117,7 +117,7 @@ jvalue_search_result jq_generator_next(jquery_generator_ptr generator)
 			jobject_iter_init(&generator->object_iterator, generator->json.value);
 		}
 
-		jobject_key_value keyval;
+		jobject_key_value keyval = {};
 		if (generator->array_iterator < g_hash_table_size(g_hash_table_iter_get_hash_table(&generator->object_iterator.m_iter))
 		    && jobject_iter_next(&generator->object_iterator, &keyval))
 		{

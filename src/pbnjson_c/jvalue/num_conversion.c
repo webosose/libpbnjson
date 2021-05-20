@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -114,9 +114,18 @@ static void numberParseExp(number_components *components, const char *ptr, const
 	{
 		switch (*ptr)
 		{
-		case '0' ... '9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			{
-				const int digit = *ptr - '0';
+				const int digit = (int)*ptr - 48;  // 48 ->'0'
 				if (UNLIKELY(exp + sign*value < (INT64_MIN+digit)/10 || exp + sign*value > (INT64_MAX-digit)/10))
 				{
 					components->exponent += sign*value;
@@ -144,10 +153,19 @@ static void numberParseDecimalLoss(number_components *components, const char *pt
 		{
 		case '0':
 			break;
-		case '1' ... '9':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			flags |= CONV_PRECISION_LOSS; // also marks end of this for-loop
 			break;
-		case 'e': case 'E':
+		case 'e':
+		case 'E':
 			if (UNLIKELY(ptr == end)) return numberNaN(components);
 			components->flags = flags;
 			return numberParseExp(components, ++ptr, end);
@@ -161,9 +179,19 @@ static void numberParseDecimalLoss(number_components *components, const char *pt
 	{
 		switch (*ptr)
 		{
-		case '0' ... '9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			break;
-		case 'e': case 'E':
+		case 'e':
+		case 'E':
 			if (UNLIKELY(ptr == end)) return numberNaN(components);
 			components->flags = flags;
 			return numberParseExp(components, ++ptr, end);
@@ -190,7 +218,15 @@ static void numberParseIntegerExp(number_components *components, const char *ptr
 		case '0':
 			++exp;
 			break;
-		case '1' ... '9':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			++exp;
 			flags |= CONV_PRECISION_LOSS; // also marks end of this for-loop
 			break;
@@ -199,7 +235,8 @@ static void numberParseIntegerExp(number_components *components, const char *ptr
 			components->flags = flags;
 			components->exponent = exp;
 			return numberParseDecimalLoss(components, ptr, end);
-		case 'e': case 'E':
+		case 'e':
+		case 'E':
 			if (UNLIKELY(ptr == end)) return numberNaN(components);
 			components->flags = flags;
 			components->exponent = exp;
@@ -214,7 +251,16 @@ static void numberParseIntegerExp(number_components *components, const char *ptr
 	{
 		switch (*ptr)
 		{
-		case '0' ... '9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			++exp;
 			break;
 		case '.':
@@ -255,7 +301,15 @@ static void numberParseDecimal(number_components *components, const char *ptr, c
 
 	switch (*ptr)
 	{
-	case '1' ... '9':
+	case '1':
+	case '2':
+	case '3':
+	case '4':
+	case '5':
+	case '6':
+	case '7':
+	case '8':
+	case '9':
 		// re-align value to make exponent equal to zero
 		for (; exp > 0; --exp)
 		{
@@ -285,13 +339,22 @@ static void numberParseDecimal(number_components *components, const char *ptr, c
 			++zeroes;
 			base *= 10;
 			break;
-		case '1' ... '9':
-			value = value*base + (*ptr - '0');
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+			value = value*base + ((int)*ptr - 48);  // 48 -> '0'
 			exp -= zeroes+1;
 			base = 10;
 			zeroes = 0;
 			break;
-		case 'e': case 'E':
+		case 'e':
+		case 'E':
 			if (UNLIKELY(ptr == end)) return numberNaN(components);
 			components->fraction = value;
 			components->exponent = exp;
@@ -313,8 +376,17 @@ static void numberParseInteger(number_components *components, const char *ptr, c
 
 	switch (*ptr)
 	{
-	case '0' ... '9':
-		value = *ptr - '0';
+	case '0':
+	case '1':
+	case '2':
+	case '3':
+	case '4':
+	case '5':
+	case '6':
+	case '7':
+	case '8':
+	case '9':
+		value = (int)*ptr - 48;  // 48 -> '0'
 		break;
 	default:
 		return numberNaN(components);
@@ -334,9 +406,17 @@ static void numberParseInteger(number_components *components, const char *ptr, c
 			++zeroes;
 			base *= 10;
 			break;
-		case '1' ... '9':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			{
-				const int digit = *ptr - '0';
+				const int digit = (int)(*ptr) - 48;  // 48 -> '0'
 				if (UNLIKELY(value > (UINT64_MAX-digit)/base))
 				{
 					components->fraction = value;
@@ -352,7 +432,8 @@ static void numberParseInteger(number_components *components, const char *ptr, c
 			components->fraction = value;
 			components->exponent += zeroes;
 			return numberParseDecimal(components, ++ptr, end);
-		case 'e': case 'E':
+		case 'e':
+		case 'E':
 			if (UNLIKELY(ptr == end)) return numberNaN(components);
 			components->fraction = value;
 			components->exponent += zeroes;

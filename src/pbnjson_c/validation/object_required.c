@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ bool object_required_add_key_n(ObjectRequired *o, char const *key, size_t key_le
 {
 	char bkey[key_len + 1];
 	strncpy(bkey, key, key_len);
-	bkey[key_len] = 0;
+	bkey[key_len] = '\0';
 
 	if (g_hash_table_lookup(o->keys, bkey))
 		return false;
@@ -94,7 +94,7 @@ char const *object_required_lookup_key_n(ObjectRequired *o, char const *key, siz
 {
 	char buffer[key_len + 1];
 	strncpy(buffer, key, key_len);
-	buffer[key_len] = 0;
+	buffer[key_len] = '\0';
 	return object_required_lookup_key(o, buffer);
 }
 

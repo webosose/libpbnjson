@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ static bool _check_conditions(StringValidator *v, ValidationEvent const *e,
 		size_t len = e->value.string.len;
 		char buf[len + 1];
 		memcpy(buf, e->value.string.ptr, len);
-		buf[len] = 0;
+		buf[len] = '\0';
 		bool res = g_regex_match(v->pattern, buf, 0, NULL);
 		if (!res)
 		{

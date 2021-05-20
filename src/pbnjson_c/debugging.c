@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -102,7 +102,7 @@ static const char *getConsumerName_internal()
 		cmdline_size = fread(cmdline, sizeof(cmdline[0]), sizeof(cmdline) - 1, cmdline_file);
 		if (cmdline_size) {
 			cmdline_size--;
-			cmdline[cmdline_size] = 0;
+			cmdline[cmdline_size] = '\0';
 			program = basename(cmdline);
 			cmdline_size = strnlen(cmdline, cmdline_size);
 		}

@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2018 LG Electronics, Inc.
+// Copyright (c) 2015-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -141,7 +141,7 @@ bool selector_sibling(jvalue_search_result *json, void *ctxt)
 	{
 		jobject_iter it;
 		jobject_iter_init(&it, parent->value);
-		jobject_key_value kv;
+		jobject_key_value kv = {};
 		while (jobject_iter_next(&it, &kv))
 		{
 			if (kv.key != json->value_key)

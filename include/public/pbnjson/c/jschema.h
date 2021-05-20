@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -55,16 +55,6 @@ PJSON_API jschema_ref jschema_all();
  * @see jschema_resolve
  */
 PJSON_API jschema_ref jschema_copy(jschema_ref schema) NON_NULL(1);
-
-/**
- * Returns a deep copy of this schema.  This may or may not be the same under the hood as jschema_copy,
- * however only this method guarantees to provide thread-safe semantics.
- *
- * @param schema The schema to duplicate.
- * @return A complete duplicate of the entire schema.  Any modifications that occur to one will never be represented
- *         in that schema (including any sub objects)
- */
-PJSON_API jschema_ref jschema_duplicate(jschema_ref schema) NON_NULL(1);
 
 /**
  * Resolves any and all external references.  This is an expensive operation and you should consider carefully

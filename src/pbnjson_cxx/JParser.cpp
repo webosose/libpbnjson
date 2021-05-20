@@ -1,4 +1,4 @@
-// Copyright (c) 2012-2018 LG Electronics, Inc.
+// Copyright (c) 2012-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -161,6 +161,9 @@ JParser::JParser()
 	, oldInterface(0)
 	, m_errors(NULL)
 	, parser(NULL)
+	, schemaInfo()
+	, errorHandler()
+	, externalRefResolver()
 {
 }
 
@@ -170,6 +173,9 @@ JParser::JParser(const JSchema &aSchema)
 	, oldInterface(0)
 	, m_errors(NULL)
 	, parser(NULL)
+	, schemaInfo()
+	, errorHandler()
+	, externalRefResolver()
 {
 }
 
@@ -179,6 +185,9 @@ JParser::JParser(JResolver* schemaResolver)
 	, oldInterface(1)
 	, m_errors(NULL)
 	, parser(NULL)
+	, schemaInfo()
+	, errorHandler()
+	, externalRefResolver()
 {
 }
 
@@ -188,6 +197,9 @@ JParser::JParser(const JParser& other)
 	, oldInterface(1)
 	, m_errors(other.m_errors)
 	, parser(NULL)
+	, schemaInfo()
+	, errorHandler()
+	, externalRefResolver()
 {
 }
 
@@ -202,7 +214,7 @@ JParser::~JParser()
 
 JSchemaInfo JParser::prepare(const JSchema& schema, JSchemaResolver& resolver, JErrorCallbacks& cErrCbs, JErrorHandler *errors)
 {
-	JSchemaInfo schemaInfo;
+	JSchemaInfo schemaInfo{};
 
 	jschema_info_init(&schemaInfo,
 	                  schema.peek(),
@@ -217,7 +229,7 @@ JSchemaInfo JParser::prepare(const JSchema& schema, JSchemaResolver& resolver, J
 
 JSchemaResolver JParser::prepareResolver() const
 {
-	JSchemaResolver resolver;
+	JSchemaResolver resolver{};
 	resolver.m_resolve = &m_resolverWrapper->sax_schema_resolver;
 	resolver.m_userCtxt = m_resolverWrapper;
 	resolver.m_inRecursion = 0;

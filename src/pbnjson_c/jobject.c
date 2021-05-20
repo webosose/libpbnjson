@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -205,7 +205,7 @@ jvalue_ref jvalue_duplicate (jvalue_ref val)
 	if (jis_object (val)) {
 		result = jobject_create_hint (jobject_size (val));
 		jobject_iter it;
-		jobject_key_value pair;
+		jobject_key_value pair = {};
 
 		jobject_iter_init(&it, val);
 		while (jobject_iter_next(&it, &pair))
@@ -426,7 +426,7 @@ static unsigned long key_hash_raw (raw_buffer const *str)
 	assert(str->m_str != NULL);
 	while (count--)
 	{
-		hash = ((hash << 5) + hash) + *data++;  // hash * 33 + c
+		hash = ((hash << 5) + hash) + (int)(*data++);  // hash * 33 + c
 	}
 	return hash;
 }
@@ -569,7 +569,7 @@ static bool jobject_equal(jvalue_ref obj, jvalue_ref other)
 		return false;
 
 	jobject_iter it;
-	jobject_key_value pair;
+	jobject_key_value pair = {};
 	jobject_iter_init(&it, obj);
 	while (jobject_iter_next(&it, &pair))
 	{

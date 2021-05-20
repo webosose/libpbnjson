@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -55,10 +55,8 @@ PJSON_LOCAL ConversionResultFlags jdouble_to_i64(double value, int64_t *result);
 PJSON_LOCAL ConversionResultFlags jdouble_to_str(double value, raw_buffer *str);
 PJSON_LOCAL ConversionResultFlags ji32_to_i64(int32_t value, int64_t *result);
 PJSON_LOCAL ConversionResultFlags ji32_to_double(int32_t value, double *result);
-PJSON_LOCAL ConversionResultFlags ji32_to_str(int32_t value, raw_buffer *str);
 PJSON_LOCAL ConversionResultFlags ji64_to_i32(int64_t value, int32_t *result);
 PJSON_LOCAL ConversionResultFlags ji64_to_double(int64_t value, double *result);
-PJSON_LOCAL ConversionResultFlags ji64_to_str(int64_t value, raw_buffer *str);
 
 #ifdef __cplusplus
 }

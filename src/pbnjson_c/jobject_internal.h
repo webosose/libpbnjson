@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -107,8 +107,6 @@ _Static_assert(offsetof(jobject, m_value) == 0, "jobject and jobject.m_value sho
 extern PJSON_LOCAL jvalue JNULL;
 
 void PJSON_LOCAL jvalue_init (jvalue_ref val, JValueType type);
-
-PJSON_LOCAL bool jobject_init(jobject *obj);
 
 extern PJSON_LOCAL int64_t jnumber_deref_i64(jvalue_ref num);
 
