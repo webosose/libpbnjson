@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2018 LG Electronics, Inc.
+// Copyright (c) 2016-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ static void keyStringDtor(void *buffer)
 static jvalue_ref allocKeyString(raw_buffer str)
 {
 	jstring_inline *new_str = (jstring_inline*) calloc(1, sizeof(jstring_inline) + str.m_len);
-	SANITY_CHECK_POINTER(new_str);
+	CHECK_POINTER_RETURN_NULL(new_str);
 	jvalue_init((jvalue_ref)new_str, JV_STR);
 
 	memcpy(new_str->m_buf, str.m_str, str.m_len);
