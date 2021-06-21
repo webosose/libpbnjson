@@ -38,7 +38,7 @@ typedef struct dom_string_memory_pool {
 	dom_string_memory_chunk *tail;
 } dom_string_memory_pool;
 
-static dom_string_memory_pool* cur_pool = NULL;
+static __thread dom_string_memory_pool* cur_pool = NULL;
 
 // Find chunk that has size + meta information available memory
 static dom_string_memory_chunk* find_chunk_with_available_memory(dom_string_memory_pool* pool, size_t size)
