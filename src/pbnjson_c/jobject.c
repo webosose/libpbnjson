@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2021 LG Electronics, Inc.
+// Copyright (c) 2009-2022 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -498,7 +498,7 @@ jvalue_ref jobject_create ()
 	                                           _ObjKeyValDestroy, _ObjKeyValDestroy);
 	if (!new_obj->m_members)
 	{
-		free(new_obj);
+		g_slice_free1 (sizeof(jobject),new_obj);
 		return NULL;
 	}
 	TRACE_REF("created", new_obj);
