@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -117,6 +117,7 @@ void definitions_add(Definitions *d, StringSpan *name, Validator *v)
 	// we'll need a space for prefix, slash, key with potenital escapes and ending zero
 	size_t buffer_len = prefix_len + 1 + name->str_len * 2 + 1;
 	char *buffer = (char*)malloc(buffer_len);
+	assert(buffer);
 	char *p = buffer;
 	(void) memcpy(p, ROOT_DEFINITIONS, prefix_len);
 	p += prefix_len;

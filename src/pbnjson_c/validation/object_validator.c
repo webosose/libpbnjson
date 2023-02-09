@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2021 LG Electronics, Inc.
+// Copyright (c) 2009-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -226,6 +226,7 @@ static bool _init_state(Validator *v, ValidationState *s)
 static void _cleanup_state(Validator *v, ValidationState *s)
 {
 	MyContext *my_ctxt = validation_state_pop_context(s);
+	assert(my_ctxt);
 	if (my_ctxt->default_properties)
 		g_hash_table_destroy(my_ctxt->default_properties);
 	validator_unref(my_ctxt->pattern_properties_validator);

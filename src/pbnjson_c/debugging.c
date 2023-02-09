@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2021 LG Electronics, Inc.
+// Copyright (c) 2009-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@
 #include <libgen.h>
 #include <strnlen.h>
 #include <isatty.h>
+#include <assert.h>
 
 static const char *program_name = NULL;
 static bool default_program_name = true;
@@ -113,6 +114,7 @@ static const char *getConsumerName_internal()
 
 	prog_name_size = cmdline_size + 10;	// 10 characters for pid & null character just in case
 	dyn_program_name = (char *)malloc(prog_name_size);
+	assert(dyn_program_name);
 	if (dyn_program_name) {
 		snprintf((char *)dyn_program_name, prog_name_size, "%d (%s)", (int) proc_pid, program);
 	}

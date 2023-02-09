@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018 LG Electronics, Inc.
+// Copyright (c) 2014-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 #include <string.h>
 
 #include "parser_memory_pool.h"
-
+#include <assert.h>
 
 void mempool_init(mem_pool_t *m)
 {
@@ -60,6 +60,7 @@ void* mempool_realloc(void *ctx, void *p, yajl_size_t size)
 	// p inside pool or null pointer
 	char *top = m->current;
 	void *newp = mempool_malloc(ctx, size);
+	assert(newp);
 	if (p) {
 		size_t diff = top - (char*)p;
 		size_t sz = (diff < size) ? diff : size;

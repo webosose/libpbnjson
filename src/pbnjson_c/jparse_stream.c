@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
 #include <inttypes.h>
 #include <sys/mman.h>
 #include "dom_string_memory_pool.h"
-
+#include <assert.h>
 #define DOM_POOL_SIZE 4
 
 //Dummy PJSAXCallbacks for DOM parsing
@@ -1239,6 +1239,7 @@ jdomparser_ref jdomparser_alloc_memory()
 
 	if (i == DOM_POOL_SIZE)
 		res = malloc(sizeof(struct jdomparser));
+	assert(res);
 
 	return res;
 }

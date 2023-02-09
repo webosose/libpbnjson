@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2018 LG Electronics, Inc.
+// Copyright (c) 2016-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/mman.h>
+#include <assert.h>
 
 // Chunk holds data buffer and current used size from its buffer and ref count
 // When chunk allocate memory it incs ref count and when it marks is as freed it decs count
@@ -65,6 +66,7 @@ static inline char* store_self(dom_string_memory_chunk* chunk)
 static dom_string_memory_chunk* dom_string_memory_pool_chunk_create(size_t size)
 {
 	dom_string_memory_chunk* chunk = (dom_string_memory_chunk*)malloc(sizeof(dom_string_memory_chunk) + size);
+	assert(chunk);
 
 	chunk->ref  = 0;
 	chunk->prev = NULL;

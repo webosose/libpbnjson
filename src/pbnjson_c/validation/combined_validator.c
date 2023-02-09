@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 #include "validation_event.h"
 #include "validation_api.h"
 #include <jobject.h>
+#include <assert.h>
 
 typedef struct _MyContext
 {
@@ -33,6 +34,7 @@ static bool _all_of_check(ValidationEvent const *e,
                           bool *all_finished)
 {
 	MyContext *my_ctxt = (MyContext *) validation_state_get_context(real_state);
+	assert(my_ctxt);
 
 	*all_finished = true;
 	GList *it = my_ctxt->states;
@@ -129,6 +131,7 @@ static bool _one_of_check(ValidationEvent const *e,
                           bool *all_finished)
 {
 	MyContext *my_ctxt = (MyContext *) validation_state_get_context(real_state);
+	assert(my_ctxt);
 
 	*all_finished = true;
 	bool one_succeeded = false;
@@ -196,6 +199,7 @@ static bool not_check(ValidationEvent const *e,
                       bool *all_finished)
 {
 	MyContext *my_ctxt = (MyContext *) validation_state_get_context(real_state);
+	assert(my_ctxt);
 
 	*all_finished = true;
 	GList *it = my_ctxt->states;
@@ -284,6 +288,8 @@ static bool init_state_suppress_errors(Validator *v, ValidationState *s)
 static void cleanup_state(Validator *v, ValidationState *s)
 {
 	MyContext *c = validation_state_pop_context(s);
+	assert(c);
+
 	g_list_free_full(c->states, (GDestroyNotify) validation_state_free);
 	g_slice_free(Notification, c->notify);
 	g_slice_free(MyContext, c);
