@@ -69,7 +69,7 @@ static dom_string_memory_chunk* dom_string_memory_pool_chunk_create(size_t size)
 {
 	dom_string_memory_chunk* chunk = (dom_string_memory_chunk*)malloc(sizeof(dom_string_memory_chunk) + size);
 	assert(chunk);
-
+  
 	chunk->ref  = 0;
 	chunk->prev = NULL;
 	chunk->used = 0;
