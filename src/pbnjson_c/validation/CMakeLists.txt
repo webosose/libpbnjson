@@ -50,12 +50,8 @@ include_directories(
 	${API_HEADERS} ${API_HEADERS}/pbnjson ${API_HEADERS}/pbnjson/c
 	)
 
-add_custom_target(
-	schema_keywords echo "Creating jscon_schema_keywords.h"
-	)
-
 function(gperf_generate source target)
-	add_custom_target(${target} echo "Creating ${target}")
+	set_source_files_properties(${target} GENERATED)
 	add_custom_command(
 		SOURCE ${source}
 		TARGET ${target}
