@@ -65,6 +65,7 @@ static bool any_of_check_with_error(ValidationEvent const *e,
                                     ValidationErrorCode error)
 {
 	MyContext *my_ctxt = (MyContext *) validation_state_get_context(real_state);
+	assert(my_ctxt);
 
 	*all_finished = true;
 	GList *it = my_ctxt->states;
