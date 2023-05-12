@@ -26,10 +26,18 @@ endif()
 add_definitions(-DPJSONCXX_SHARED)
 add_definitions(-DPJSON_SHARED)
 add_definitions(-DPJSONCXX_EXPORT)
-add_definitions(-DLIBRARY_NAME=pbnjson_cpp)
-    
-add_library(pbnjson_cpp SHARED ${SHARED_SOURCE})
-target_link_libraries(pbnjson_cpp pbnjson_c)
+
+option(WEBOS_CLANG_BUILD "Build with clang" OFF)
+if(${WEBOS_CLANG_BUILD})
+	set(CLANG_EXT "_clang")
+else()
+	set(CLANG_EXT "")
+endif()
+
+add_definitions(-DLIBRARY_NAME=pbnjson_cpp${CLANG_EXT})
+
+add_library(pbnjson_cpp${CLANG_EXT} SHARED ${SHARED_SOURCE})
+target_link_libraries(pbnjson_cpp${CLANG_EXT} pbnjson_c${CLANG_EXT})
 
 include_directories(${API_HEADERS}
                     ${API_HEADERS}/pbnjson
@@ -41,5 +49,5 @@ include_directories(${API_HEADERS}
 
 
 # All of the headers are installed by pbnjson_c
-webos_build_library(NAME pbnjson_cpp NOHEADERS)
+webos_build_library(NAME pbnjson_cpp${CLANG_EXT} NOHEADERS)
 webos_build_pkgconfig(files/pkgconfig/pbnjson_cpp)
