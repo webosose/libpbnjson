@@ -56,6 +56,7 @@ static bool _check(Validator *v, ValidationEvent const *e, ValidationState *s, v
 {
 	ObjectValidator *vobj = (ObjectValidator *) v;
 	MyContext *my_ctxt = (MyContext *) validation_state_get_context(s);
+	assert(my_ctxt);
 	if (!my_ctxt->has_started)
 	{
 		if (e->type != EV_OBJ_START)

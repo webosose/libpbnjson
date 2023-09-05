@@ -22,6 +22,7 @@
 #include <JSchemaResolverWrapper.h>
 #include "liblog.h"
 #include "../pbnjson_c/jparse_stream_internal.h"
+#include <jobject.h>
 
 namespace pbnjson {
 
@@ -77,6 +78,9 @@ static int __string(JSAXContextRef ctxt, const char *str, size_t len)
 	return SaxBounce::s(static_cast<JParser *>(jsax_getContext(ctxt)), std::string(str, len));
 }
 
+static bool jis_valid_unsafe (jvalue_ref val)
+{ return val != jinvalid() && val != NULL; }
+
 static int __number(JSAXContextRef ctxt, const char *number, size_t len)
 {
 	JParser *p = static_cast<JParser *>(jsax_getContext(ctxt));
@@ -89,7 +93,10 @@ static int __number(JSAXContextRef ctxt, const char *number, size_t len)
 			int64_t asInteger;
 			double asFloat;
 			ConversionResultFlags toFloatErrors;
-
+			if(!jis_valid_unsafe(toConv))
+			{
+				return 0;
+			}
 			if (CONV_OK == jnumber_get_i64(toConv, &asInteger)) {
 				j_release(&toConv);
 				return SaxBounce::n(p, (asInteger));
