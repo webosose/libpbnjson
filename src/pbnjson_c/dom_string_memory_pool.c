@@ -15,6 +15,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include "dom_string_memory_pool.h"
+#include "liblog.h"
 
 #include <glib.h>
 #include <unistd.h>
@@ -121,8 +122,15 @@ static void dom_string_memory_pool_chunk_unref(dom_string_memory_chunk* chunk)
 dom_string_memory_pool* dom_string_memory_pool_create()
 {
 	dom_string_memory_pool* pool = (dom_string_memory_pool*)malloc(sizeof(dom_string_memory_pool));
-	pool->tail = NULL;
-	cur_pool = pool;
+	if(pool != NULL)
+	{
+		pool->tail = NULL;
+		cur_pool = pool;
+	}
+	else
+	{
+		PJ_LOG_ERR("[%s][%d] pool - memory corruption and/or random crashes are possible",__FUNCTION__,__LINE__);
+	}
 	return pool;
 }
 
