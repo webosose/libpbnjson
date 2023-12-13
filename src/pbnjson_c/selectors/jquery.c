@@ -73,6 +73,7 @@ jquery_ptr jquery_create(const char *str, jerror **err)
 	JQueryScan_set_extra(err, scanner);
 
 	void *parser = JQueryParseAlloc(malloc);
+	CHECK_POINTER_SET_ERROR_RETURN(parser, NULL, err, "'parser' parameter must be a non-null pointer");
 	jq_parser_context context = { err, { NULL, NULL } };
 	//JQueryParseTrace(stdout, ">> ");
 
