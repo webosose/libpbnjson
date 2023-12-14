@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2018 LG Electronics, Inc.
+// Copyright (c) 2015-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -73,7 +73,11 @@ jquery_ptr jquery_create(const char *str, jerror **err)
 	JQueryScan_set_extra(err, scanner);
 
 	void *parser = JQueryParseAlloc(malloc);
-	CHECK_POINTER_SET_ERROR_RETURN(parser, NULL, err, "'parser' parameter must be a non-null pointer");
+	if (!parser) {
+		JQueryScan_lex_destroy(scanner);
+		jerror_set(err, JERROR_TYPE_INVALID_PARAMETERS, "'parser' parameter must be a non-null pointer");
+		return NULL;
+	}
 	jq_parser_context context = { err, { NULL, NULL } };
 	//JQueryParseTrace(stdout, ">> ");
 
