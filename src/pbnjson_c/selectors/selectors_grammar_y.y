@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (c) 2015-2018 LG Electronics, Inc.
+ * Copyright (c) 2015-2023 LG Electronics, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@
 }
 
 %syntax_error {
-    if (!yyminor.yy0.m_str)
+    if (!TOKEN.m_str)
     {
         jerror_set(context->error, JERROR_TYPE_SYNTAX,
                    "Unexpected end of the query string");
@@ -53,7 +53,7 @@
     {
         jerror_set_formatted(context->error, JERROR_TYPE_SYNTAX,
                              "Unexpected token '%s' in the query string",
-                             yyminor.yy0.m_str);
+                             TOKEN.m_str);
     }
 }
 
