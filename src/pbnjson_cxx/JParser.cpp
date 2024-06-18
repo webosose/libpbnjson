@@ -1,4 +1,4 @@
-// Copyright (c) 2012-2021 LG Electronics, Inc.
+// Copyright (c) 2012-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@
 #include "liblog.h"
 #include "../pbnjson_c/jparse_stream_internal.h"
 #include <jobject.h>
+#include <limits>
 
 namespace pbnjson {
 
@@ -284,12 +285,22 @@ bool JParser::feed(const char *buf, int length)
 
 bool JParser::feed(const std::string &data)
 {
-	return feed(data.data(), data.size());
+	if (data.size() > static_cast<size_t>(INT_MAX))
+	{
+		PJ_LOG_ERR("Error: data.size() cannot be safely cast to int");
+		return false;
+	}
+	return feed(data.data(), static_cast<int>(data.size()));
 }
 
 bool JParser::feed(const JInput& input)
 {
-	return jsaxparser_feed(parser, input.m_str, input.m_len);
+	int safe_value=0;
+	if (input.m_len <= static_cast<unsigned long>(std::numeric_limits<int>::max()))
+		safe_value = static_cast<int>(input.m_len);
+	else
+		PJ_LOG_ERR("Error: Value cannot be safely cast to int.");
+	return jsaxparser_feed(parser, input.m_str, safe_value);
 }
 
 bool JParser::end()

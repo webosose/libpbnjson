@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@
 #include <pbnjson.h>
 #include "JErrorHandler.h"
 #include "JErrorHandlerUtils.h"
+#include "liblog.h"
 #include <JSchema.h>
+#include <limits>
 #include "../pbnjson_c/jschema_types_internal.h"
 #include "../pbnjson_c/validation/error_code.h"
 #include "../pbnjson_c/jparse_stream_internal.h"
@@ -173,12 +175,23 @@ bool JDomParser::feed(const char *buf, int length)
 
 bool JDomParser::feed(const JInput& input)
 {
-	return jdomparser_feed(parser, input.m_str, input.m_len);
+	int safe_value=0;
+	if (input.m_len <= static_cast<unsigned long>(std::numeric_limits<int>::max()))
+		safe_value = static_cast<int>(input.m_len);
+	else
+		PJ_LOG_ERR("Error: Value cannot be safely cast to int.");
+
+	return jdomparser_feed(parser, input.m_str, safe_value);
 }
 
 bool JDomParser::feed(const std::string &data)
 {
-	return feed(data.data(), data.size());
+	if (data.size() > static_cast<size_t>(INT_MAX))
+	{
+		PJ_LOG_ERR("Error: data.size() cannot be safely cast to int");
+		return false;
+	}
+	return feed(data.data(), static_cast<int>(data.size()));
 }
 
 bool JDomParser::end()

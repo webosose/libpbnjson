@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2021 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
 #include <JSchema.h>
 #include <JGenerator.h>
 #include <cassert>
+#include <limits>
+#include "liblog.h"
 
 #ifdef DBG_CXX_MEM_STR
 #define PJ_DBG_CXX_STR(expr) expr
@@ -39,12 +41,16 @@ static inline raw_buffer strToRawBuffer(const std::string& str)
 
 static inline void arrayit_inc_index(size_t& cur, size_t step, size_t max)
 {
-    cur = cur + step < max ? cur + step : -1;
+    // Used a signed type to handle potential overflow
+    int temp = static_cast<int>(cur) + step;
+    cur = temp < 0 || static_cast<size_t>(temp) < max ? static_cast<size_t>(temp) : -1 ;
 }
 
 static inline void arrayit_dec_index(size_t& cur, size_t step, size_t min)
 {
-    cur = cur - step >= min ? cur - step : -1;
+    // Use a signed type to handle potential underflow
+    int temp = static_cast<int>(cur) - step;
+    cur = temp >= min ? static_cast<size_t>(temp) : -1;
 }
 
 JValue::ArrayIterator::ArrayIterator()
@@ -96,7 +102,11 @@ JValue::ArrayIterator& JValue::ArrayIterator::operator=(const ArrayIterator &oth
 
 JValue::ArrayIterator& JValue::ArrayIterator::operator++()
 {
-	arrayit_inc_index(_index, 1, jarray_size(_parent));
+	ssize_t parent = jarray_size(_parent);
+	if(parent < 0)
+		parent = 0;
+
+	arrayit_inc_index(_index, 1, parent);
 	return *this;
 }
 
@@ -310,12 +320,16 @@ JValue::JValue(const double value)
 }
 
 JValue::JValue(const std::string &value)
-	: m_jval(jstring_create_utf8(value.c_str(), value.size()))
+	: m_jval(jstring_create_utf8(
+				value.c_str(),
+				value.size() < (static_cast<unsigned long>(std::numeric_limits<long>::max())) ? value.size() : 0 ) )
 {
 }
 
 JValue::JValue(const char *str)
-	: m_jval(jstring_create_utf8(str, strlen(str)))
+	: m_jval(jstring_create_utf8(
+				str,
+				strlen(str) < (static_cast<unsigned long>(std::numeric_limits<long>::max())) ? strlen(str) : 0 ) )
 {
 }
 
@@ -452,7 +466,16 @@ JValue::operator bool() const
 
 bool JValue::put(size_t index, const JValue& value)
 {
-	return jarray_set(m_jval, index, value.peekRaw());
+	long safe_value = 0;
+	if (index < static_cast<unsigned long>(std::numeric_limits<long>::max()))
+	{
+		safe_value = static_cast<long>(index);
+	}
+	else
+	{
+		PJ_LOG_WARN("Warning: Value cannot be safely cast to int.");
+    }
+	return jarray_set(m_jval, safe_value, value.peekRaw());
 }
 
 bool JValue::put(const std::string& key, const JValue& value)
