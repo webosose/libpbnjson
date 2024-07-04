@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2021 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <math.h>
-#include <stdbool.h>
 #include <assert.h>
 #include <inttypes.h>
 

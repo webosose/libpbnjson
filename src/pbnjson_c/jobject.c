@@ -307,7 +307,7 @@ int jvalue_compare(const jvalue_ref val1, const jvalue_ref val2)
 	return 0;
 }
 
-static void j_destroy_object (jvalue_ref obj) NON_NULL(1);
+static void j_destroy_object (jvalue_ref ref) NON_NULL(1);
 static void j_destroy_array (jvalue_ref arr) NON_NULL(1);
 static void j_destroy_string (jvalue_ref str) NON_NULL(1);
 static void j_destroy_number (jvalue_ref num) NON_NULL(1);

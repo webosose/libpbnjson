@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ public:
 	 *
 	 * @param schema The schema to use for validation of the input
 	 */
-	JDomParser(const JSchema &schema);
+	JDomParser(const JSchema &aSchema);
 
 	/**
 	* Initialize a JSON parser that will generate a DOM. Resolver is used if schema contains external links.
@@ -150,7 +150,7 @@ public:
 	 *
 	 * @deprecated Use JDomParser::reset.
 	 */
-	bool begin(const JSchema &schema, JErrorHandler *errors = NULL) DEPRECATED_API_MSG("Use reset");
+	bool begin(const JSchema &_schema, JErrorHandler *errors = NULL) DEPRECATED_API_MSG("Use reset");
 
 	/**
 	 * @brief Reset the JSON parser to initial state (ready to parse new JSON).
@@ -162,7 +162,7 @@ public:
  	 *
  	 * @param schema The schema to use for validation of the input
  	 */
-	void reset(const JSchema &schema);
+	void reset(const JSchema &_schema);
 
 	/**
 	 * @brief Parse input JSON chunk by chunk

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018 LG Electronics, Inc.
+// Copyright (c) 2014-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -84,7 +84,7 @@ static inline const char *jschema_builder_error_str(jschema_builder *builder)
 jschema_builder *jschema_builder_create();
 void jschema_builder_free(jschema_builder *builder);
 
-Validator* jschema_builder_finish(jschema_builder *builder, UriResolver *uri_resolveri, char const *root_scope);
+Validator* jschema_builder_finish(jschema_builder *builder, UriResolver *uri_resolver, char const *root_scope);
 
 /* schema builder methods (tokens) */
 

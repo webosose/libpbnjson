@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -71,10 +71,10 @@ ArrayValidator* array_validator_new();
 void array_validator_release(ArrayValidator *v);
 
 /** @brief Set maximal item count in the array. */
-void array_validator_set_max_items(ArrayValidator *v, size_t max);
+void array_validator_set_max_items(ArrayValidator *a, size_t max);
 
 /** @brief Set minimal item count in the array. */
-void array_validator_set_min_items(ArrayValidator *v, size_t min);
+void array_validator_set_min_items(ArrayValidator *a, size_t min);
 
 #ifdef __cplusplus
 }

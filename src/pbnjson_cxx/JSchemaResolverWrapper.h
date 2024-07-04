@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -60,13 +60,13 @@ namespace pbnjson {
 		/**
 		 * Called when the schema should be resolved.  By default, this does not need to be overridden
 		 * (it invokes the resolver you created this class with).
-		 * @param abstractResolver - The resolution information from the C library
+		 * @param resolver - The resolution information from the C library
 		 * @param resolvedSchema - An output variable.  It is set to the parsed external schema & ownership is
 		 *                         transferred to the invoker of the callback.  This should be NULL if and only if
 		 *                         the return value is not SCHEMA_RESOLVED.
 		 * @return Whether or not resolution of the external schema reference succeeded.
 		 */
-		virtual JSchemaResolutionResult resolve(JSchemaResolverRef abstractResolver, jschema_ref *resolvedSchema);
+		virtual JSchemaResolutionResult resolve(JSchemaResolverRef resolver, jschema_ref *resolvedSchema);
 
 	private:
 		//Pointer to supplied resolver. sax_schema_resolver() delegates it's work here.

@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2018 LG Electronics, Inc.
+// Copyright (c) 2015-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ jquery_ptr jquery_new(selector_filter_function sfunc,
 /* Function preserves found object keys, array indexes and pointers to parents.
  * Should be used in the jquery combinators
  */
-void jquery_internal_init(jquery_ptr query, jvalue_search_result json);
+void jquery_internal_init(jquery_ptr query, jvalue_search_result JSON);
 
 static inline void j_release_helper(jvalue_ref val)
 {

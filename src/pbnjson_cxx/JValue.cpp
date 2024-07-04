@@ -43,14 +43,14 @@ static inline void arrayit_inc_index(size_t& cur, size_t step, size_t max)
 {
     // Used a signed type to handle potential overflow
     int temp = static_cast<int>(cur) + step;
-    cur = temp < 0 || static_cast<size_t>(temp) < max ? static_cast<size_t>(temp) : -1 ;
+    cur = ( ( static_cast<size_t>(temp) ) < max ) ? ( static_cast<size_t>(temp) ) : -1 ;
 }
 
 static inline void arrayit_dec_index(size_t& cur, size_t step, size_t min)
 {
     // Use a signed type to handle potential underflow
     int temp = static_cast<int>(cur) - step;
-    cur = temp >= min ? static_cast<size_t>(temp) : -1;
+    cur = ( temp >= min ) ? static_cast<size_t>(temp) : -1;
 }
 
 JValue::ArrayIterator::ArrayIterator()

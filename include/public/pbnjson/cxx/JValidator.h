@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public:
 	 * @see JSchema
 	 * @see JErrorHandler
 	 */
-	static bool isValid(const JValue &jValue, const JSchema &jSchema, JResolver &jResolver, JErrorHandler *errors = NULL);
+	static bool isValid(const JValue &jVal, const JSchema &schema, JResolver &resolver, JErrorHandler *errors = NULL);
 
 	/**
 	 * Check validity of JValue against JSchema. The function is not able to resolve externals
@@ -63,10 +63,10 @@ public:
 	 *
 	 * @deprecated use JSchema::validate
 	 * @see JValue
-	 * @see JSchema
+	 * @see schema
 	 * @see JErrorHandler
 	 */
-	static bool isValid(const JValue &jValue, const JSchema &jSchema, JErrorHandler *errors = NULL);
+	static bool isValid(const JValue &jValue, const JSchema &schema, JErrorHandler *errors = NULL);
 
 	/**
 	 * Check validity of JValue against JSchema, and modifies JValue by inserting default values(specified by schema).

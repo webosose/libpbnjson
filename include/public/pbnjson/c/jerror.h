@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2018 LG Electronics, Inc.
+// Copyright (c) 2015-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -40,9 +40,9 @@ PJSON_API jerror *jerror_duplicate(const jerror *other);
 /**
  * Free allocated space for jerror. If error is NULL it simply returns.
  *
- * @param error pbnjson error information to free.
+ * @param err pbnjson error information to free.
  */
-PJSON_API void jerror_free(jerror *error);
+PJSON_API void jerror_free(jerror *err);
 
 /**
  * Get textual representation of the occurred error, can be used for logging.
@@ -53,7 +53,7 @@ PJSON_API void jerror_free(jerror *error);
  * @return The number of characters that would have been written if size had been
  *         sufficiently large, not counting the terminating null character.
  */
-PJSON_API int jerror_to_string(jerror *error, char *str, size_t size);
+PJSON_API int jerror_to_string(jerror *err, char *str, size_t size);
 
 #ifdef __cplusplus
 }

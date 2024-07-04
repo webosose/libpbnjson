@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2023 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -198,45 +198,45 @@ public:
 	/**
 	 * Construct boolean value
 	 *
-	 * @param[in] v The value to convert to a JSON value.
+	 * @param[in] value The value to convert to a JSON value.
 	 */
-	JValue(const bool    v);
+	JValue(const bool    value);
 	/**
 	 * Construct number value from int_32
 	 *
 	 * @param[in] v The value to convert to a JSON value.
 	 */
-	JValue(const int32_t v);
+	JValue(const int32_t value);
 	/**
 	 * Construct number value from int_64
 	 *
-	 * @param[in] v The value to convert to a JSON value.
+	 * @param[in] value The value to convert to a JSON value.
 	 */
-	JValue(const int64_t v);
+	JValue(const int64_t value);
 	/**
 	 * Construct number value from double
 	 *
-	 * @param[in] v The value to convert to a JSON value.
+	 * @param[in] value The value to convert to a JSON value.
 	 */
-	JValue(const double  v);
+	JValue(const double  value);
+	/**
+	 * Construct string value
+	 *
+	 * @param[in] str The value to convert to a JSON value.
+	 */
+	JValue(const char *str);
 	/**
 	 * Construct string value
 	 *
 	 * @param[in] v The value to convert to a JSON value.
 	 */
-	JValue(const char        *v);
-	/**
-	 * Construct string value
-	 *
-	 * @param[in] v The value to convert to a JSON value.
-	 */
-	JValue(const std::string &v);
+	JValue(const std::string &value);
 	/**
 	 * Construct JSON value from JSON array element
 	 *
-	 * @param[in] v The value to convert to a JSON value.
+	 * @param[in] other The value to convert to a JSON value.
 	 */
-	JValue(const JValueArrayElement &v);
+	JValue(const JValueArrayElement &other);
 #ifdef CPP11
 	/**
 	 * Construct JSON null value
@@ -246,9 +246,9 @@ public:
 	/**
 	 * Construct number value from numeric string
 	 *
-	 * @param[in] v The value to convert to a JSON value.
+	 * @param[in] value The value to convert to a JSON value.
 	 */
-	JValue(const NumericString &v);
+	JValue(const NumericString &value);
 	//@}
 
 	/**
@@ -751,10 +751,10 @@ public:
 	/**
 	 * Converts this JSON value to a native boolean type.
 	 *
-	 * @param[out] value Pass-by-reference to the boolean to assign
+	 * @param[out] result Pass-by-reference to the boolean to assign
 	 * @return CONV_OK if this JSON value represents a JSON boolean.
 	 */
-	ConversionResultFlags asBool(bool &value) const;
+	ConversionResultFlags asBool(bool &result) const;
 
 	/**
 	 * Convenience method to convert to a boolean.
@@ -1250,17 +1250,17 @@ ConversionResultFlags JValue::asNumber<int32_t>(int32_t& value) const;
 
 /// asNumber template specializations
 template <>
-ConversionResultFlags JValue::asNumber<int64_t>(int64_t& value) const;
+ConversionResultFlags JValue::asNumber<int64_t>(int64_t& number) const;
 
 /// asNumber template specializations
 template <>
-ConversionResultFlags JValue::asNumber<double>(double& value) const;
+ConversionResultFlags JValue::asNumber<double>(double& number) const;
 ///asNumber template specializations
 template <>
-ConversionResultFlags JValue::asNumber<std::string>(std::string& value) const;
+ConversionResultFlags JValue::asNumber<std::string>(std::string& number) const;
 ///asNumber template specializations
 template <>
-ConversionResultFlags JValue::asNumber<NumericString>(NumericString& value) const;
+ConversionResultFlags JValue::asNumber<NumericString>(NumericString& number) const;
 
 ///asNumber template specializations
 template <>

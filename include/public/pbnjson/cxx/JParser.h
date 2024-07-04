@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -82,7 +82,7 @@ public:
 	/**
 	 * Initialize a parser with the concrete schema.
 	 */
-	JParser(const JSchema &schema);
+	JParser(const JSchema &aSchema);
 
 	/**
 	 * Initialize a JSON. Resolver is used if schema contains external links.
@@ -160,7 +160,7 @@ public:
 	 *
 	 * @deprecated use JParser::reset(const JSchema &schema)
 	 */
-	bool begin(const JSchema &schema, JErrorHandler *errors = NULL) DEPRECATED_API_MSG("Use reset");
+	bool begin(const JSchema &_schema, JErrorHandler *errors = NULL) DEPRECATED_API_MSG("Use reset");
 
 	/**
 	 * @brief Prepare class to parse JSON from stream
@@ -170,9 +170,9 @@ public:
 	/**
 	 * @brief Reset the parser to use a concrete schema for parsing from a stream.
 	 *
-	 * @param schema The schema to use for validation of the input
+	 * @param _schema The schema to use for validation of the input
 	 */
-	void reset(const JSchema &schema);
+	void reset(const JSchema &_schema);
 
 	/**
 	 * @brief Feed next chunk of the JSON from the stream. Use char * and int's length as input buffer.

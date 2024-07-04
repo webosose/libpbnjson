@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2018 LG Electronics, Inc.
+// Copyright (c) 2015-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -52,10 +52,10 @@ bool jquery_init(jquery_ptr query, jvalue_ref JSON,  jerror **err);
 /**
  * @brief Get next jquery result for current JSON, which was set with jquery_init,
  * for current JSON, set by previous jquery_init call
- * @param next pointer to jquery
+ * @param query pointer to jquery
  * @return next jvalue or NULL if next value not found
  */
-jvalue_ref jquery_next(jquery_ptr next);
+jvalue_ref jquery_next(jquery_ptr query);
 
 /**
  * @brief Free jquery_ptr memory

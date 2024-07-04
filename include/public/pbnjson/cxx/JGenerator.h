@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ public:
 	 * @note Returning false typically indicates a schema violation or invalid DOM
 	 * (e.g. Root of DOM isn't an object or array)
 	 */
-	bool toString(const JValue &val, const JSchema &schema, std::string &asStr);
+	bool toString(const JValue &obj, const JSchema &schema, std::string &asStr);
 
 	/**
 	 * @brief Convenience function to wrap call to toString for JSON objects/arrays.

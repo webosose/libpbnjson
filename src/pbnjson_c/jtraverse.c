@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018 LG Electronics, Inc.
+// Copyright (c) 2014-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
 #include <jobject.h>
 
 #include "jobject_internal.h"
-#include "jparse_stream_internal.h"
 #include "jtraverse.h"
 
 static bool jkeyvalue_traverse(jobject_key_value jref, TraverseCallbacksRef tc, void *context)

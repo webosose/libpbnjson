@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -91,6 +91,8 @@ bool uri_resolver_steal_documents(UriResolver *u, UriResolver *source);
 
 /** @brief Debug method */
 char *uri_resolver_dump(UriResolver const *u);
+
+char const *_check_fragment(char const *fragment);
 
 #ifdef __cplusplus
 }

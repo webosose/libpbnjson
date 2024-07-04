@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2018 LG Electronics, Inc.
+// Copyright (c) 2016-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ void
 dom_string_memory_pool_destroy(dom_string_memory_pool*);
 
 void*
-dom_string_memory_pool_alloc(dom_string_memory_pool* pool, size_t size);
+dom_string_memory_pool_alloc(dom_string_memory_pool* pool, size_t raw);
 
 void
 dom_string_memory_pool_mark_as_free(void *ptr);

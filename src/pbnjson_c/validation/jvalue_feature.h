@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ JvalueFeature *jvalue_feature_new(jvalue_ref value, JvalueFeatureFunc apply_func
 JvalueFeature *jvalue_feature_ref(JvalueFeature *j);
 
 /** @brief Decrease reference counter. Once it drops to zero, destruct the object. */
-void jvalue_feature_unref(JvalueFeature *f);
+void jvalue_feature_unref(JvalueFeature *j);
 
 #ifdef __cplusplus
 }

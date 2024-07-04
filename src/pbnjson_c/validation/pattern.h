@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -37,10 +37,10 @@ typedef struct _Pattern
 Pattern* pattern_new(void);
 
 /** @brief Assign regular expression to pattern feature */
-bool pattern_set_regex(Pattern *p, char const *regex);
+bool pattern_set_regex(Pattern *p, char const *str);
 
 /** @brief Assign regular expression to pattern feature */
-bool pattern_set_regex_n(Pattern *p, char const *regex, size_t regex_len);
+bool pattern_set_regex_n(Pattern *p, char const *str, size_t str_len);
 
 
 #ifdef __cplusplus

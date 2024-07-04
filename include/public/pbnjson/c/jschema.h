@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2021 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -107,7 +107,7 @@ PJSON_API void jschema_release(jschema_ref *schema) NON_NULL(1);
  * @note Be carefully while using x-references in files
  * @see jschema_parse
  */
-PJSON_API jschema_ref jschema_parse_ex(raw_buffer input, JSchemaOptimizationFlags inputOpt, JSchemaInfoRef schemaInfo) NON_NULL(3);
+PJSON_API jschema_ref jschema_parse_ex(raw_buffer input, JSchemaOptimizationFlags inputOpt, JSchemaInfoRef validationInfo) NON_NULL(3);
 
 /**
  * Returns the "DOM" structure of the schema that is ready for validation
@@ -153,7 +153,7 @@ PJSON_API jschema_ref jschema_parse_file_resolve(const char *file, const char *r
  * @deprecated Will be removed in 3.0, use jschema_jcreate
  * @see jschema_parse_ex
  */
-PJSON_API jschema_ref jschema_parse_jvalue(jvalue_ref input, JErrorCallbacksRef errorHandler, const char *root_scope);
+PJSON_API jschema_ref jschema_parse_jvalue(jvalue_ref value, JErrorCallbacksRef errorHandler, const char *root_scope);
 
 /**
  * Returns the "DOM" structure of the schema that is ready for validation

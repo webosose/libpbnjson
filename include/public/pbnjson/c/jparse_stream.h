@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -67,7 +67,7 @@ PJSON_API jvalue_ref jdom_fcreate(const char *file, const jschema_ref schema, je
  *         not parsing succeeded.
  * @deprecated Use jdom_fcreate instead
  */
-PJSON_API jvalue_ref jdom_parse_file(const char *file, JSchemaInfoRef schemaInfo, JFileOptimizationFlags opts) NON_NULL(1, 2);
+PJSON_API jvalue_ref jdom_parse_file(const char *file, JSchemaInfoRef schemaInfo, JFileOptimizationFlags flags) NON_NULL(1, 2);
 
 /**
  * @brief Returns the DOM structure of the JSON document.
@@ -123,7 +123,7 @@ PJSON_API jvalue_ref jdom_parse(raw_buffer input, JDOMOptimizationFlags optimiza
  * @see jsax_changeContextd
  */
 PJSON_API bool jsax_parse_with_callbacks(raw_buffer input, const jschema_ref schema,
-                                         PJSAXCallbacks *callbacks, void *context,
+                                         PJSAXCallbacks *callbacks, void *callback_ctxt,
                                          jerror **err) NON_NULL(2);
 
 /**
@@ -148,7 +148,7 @@ PJSON_API bool jsax_parse_with_callbacks(raw_buffer input, const jschema_ref sch
  * @see jsax_changeContext
  * @deprecated Use jsax_parse_with_callbacks instead
  */
-PJSON_API bool jsax_parse_ex(PJSAXCallbacks *parser, raw_buffer input, JSchemaInfoRef schemaInfo, void **data) NON_NULL(3);
+PJSON_API bool jsax_parse_ex(PJSAXCallbacks *parser, raw_buffer input, JSchemaInfoRef schemaInfo, void **ctxt) NON_NULL(3);
 
 /**
  * @brief Convenience method for the more extended version.  No error message generated.
@@ -158,7 +158,7 @@ PJSON_API bool jsax_parse_ex(PJSAXCallbacks *parser, raw_buffer input, JSchemaIn
  * @deprecated Use jsax_parse_with_callbacks instead or jsaxparser_new + jsaxparser_feed + jsaxparser_end + jsaxparser_release
  * @see jsax_parse_ex
  */
-PJSON_API bool jsax_parse(PJSAXCallbacks *parser, raw_buffer input, JSchemaInfoRef schemaInfo) NON_NULL(3);
+PJSON_API bool jsax_parse(PJSAXCallbacks *parser, raw_buffer input, JSchemaInfoRef schema) NON_NULL(3);
 
 /**
  * @brief Changes user defined context

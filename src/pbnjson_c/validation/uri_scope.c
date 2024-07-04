@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2021 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ static UriUriA *uri_scope_get_uri(UriScope const *u)
 char const *uri_scope_get_fragment(UriScope const *u)
 {
 	UriUriA *uri = uri_scope_get_uri_unsafe(u);
-	return uri->fragment.first ? uri->fragment.first - 1 : ROOT_FRAGMENT;
+	return (uri->fragment.first) ? (uri->fragment.first - 1) : ROOT_FRAGMENT;
 }
 
 int uri_scope_get_document_length(UriScope const *u)

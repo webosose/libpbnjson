@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -124,7 +124,7 @@ jsaxparser_ref jsaxparser_alloc_memory();
  *                 parsing events.
  * @param callback_ctxt Context that will be returned in callbacks
  */
-void jsaxparser_init(jsaxparser_ref parser, jschema_ref schema, PJSAXCallbacks *callback, void *callback_ctxt);
+void jsaxparser_init(jsaxparser_ref parser, const jschema_ref schema, PJSAXCallbacks *callback, void *callback_ctxt);
 
 /**
  * @brief jsaxparser_init Initialize SAX stream parser
@@ -162,7 +162,7 @@ jdomparser_ref jdomparser_alloc_memory();
  * @param parser Parser to intialize
  * @param schema The schema to use for validation of the input.
  */
-void jdomparser_init(jdomparser_ref parser, jschema_ref schema);
+void jdomparser_init(jdomparser_ref parser, const jschema_ref schema);
 
 /**
  * @brief jdomparser_init Initialize DOM stream parser

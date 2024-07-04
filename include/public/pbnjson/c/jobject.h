@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -114,11 +114,11 @@ PJSON_API jvalue_ref jvalue_duplicate(jvalue_ref val);
  *
  * Check if two JSON values are identical. The objects are compared by values
  *
- * @param val JSON value to compare with
- * @param other JSON value to compare with
+ * @param val1 JSON value to compare with
+ * @param val2 JSON value to compare with
  * @return true if values are identical, otherwise false
  */
-PJSON_API bool jvalue_equal(jvalue_ref val, jvalue_ref other) NON_NULL(1, 2);
+PJSON_API bool jvalue_equal(jvalue_ref val1, jvalue_ref val2) NON_NULL(1, 2);
 
 /**
  * @brief Compare if one JSON value less, greater or identical with other.
@@ -131,7 +131,7 @@ PJSON_API bool jvalue_equal(jvalue_ref val, jvalue_ref other) NON_NULL(1, 2);
  * @param other JSON value to compare with
  * @return <0 if val less than other, >0 if val greater then other, otherwise 0
  */
-PJSON_API int jvalue_compare(const jvalue_ref val, const jvalue_ref other) NON_NULL(1, 2);
+PJSON_API int jvalue_compare(const jvalue_ref val1, const jvalue_ref val2) NON_NULL(1, 2);
 
 /**
  * @brief Release ownership from *val.  *val has an undefined value afterwards.
@@ -207,7 +207,7 @@ PJSON_API bool jis_null(jvalue_ref val);
  * @deprecated Use @ref jvalue_validate instead
  *
  */
-PJSON_API bool jvalue_check_schema(jvalue_ref val, const JSchemaInfoRef schema) NON_NULL(1, 2);
+PJSON_API bool jvalue_check_schema(jvalue_ref jref, const JSchemaInfoRef schema_info) NON_NULL(1, 2);
 
 /**
  * @brief Check validity of jvalue against the schema.
@@ -745,7 +745,7 @@ PJSON_API bool jarray_append(jvalue_ref arr, jvalue_ref val) NON_NULL(1, 2);
  * @see jarray_splice_inject
  * @see jarray_splice_append
  */
-PJSON_API bool jarray_splice(jvalue_ref array1, ssize_t index, ssize_t toRemove, jvalue_ref array2, ssize_t begin, ssize_t end, JSpliceOwnership ownership) NON_NULL(1, 4);
+PJSON_API bool jarray_splice(jvalue_ref array, ssize_t index, ssize_t toRemove, jvalue_ref array2, ssize_t begin, ssize_t end, JSpliceOwnership ownership) NON_NULL(1, 4);
 
 /**
  * @brief Wrapper to insert all elements from the second array into the first at the given position.
@@ -762,7 +762,7 @@ PJSON_API bool jarray_splice(jvalue_ref array1, ssize_t index, ssize_t toRemove,
  * @see jarray_splice
  * @see jarray_splice_append
  */
-PJSON_API bool jarray_splice_inject(jvalue_ref array1, ssize_t index, jvalue_ref array2, JSpliceOwnership ownership) NON_NULL(1, 3);
+PJSON_API bool jarray_splice_inject(jvalue_ref array, ssize_t index, jvalue_ref arrayToInject, JSpliceOwnership ownership) NON_NULL(1, 3);
 
 /**
  * @brief Append all the contents of array2 to array1.
@@ -770,14 +770,14 @@ PJSON_API bool jarray_splice_inject(jvalue_ref array1, ssize_t index, jvalue_ref
  * Append all the contents of array2 to array1.
  * Additional ownership of the copied elements is not retained.
  *
- * @param array1 The array to insert into
- * @param array2 The array to copy from
+ * @param array The array to insert into
+ * @param arrayToAppend The array to copy from
  * @param ownership What to do with the elements going from array2 into array1.  You can transfer ownership or copy.
  *
  * @see jarray_splice
  * @see jarray_splice_inject
  */
-PJSON_API bool jarray_splice_append(jvalue_ref array1, jvalue_ref array2, JSpliceOwnership ownership) NON_NULL(1, 2);
+PJSON_API bool jarray_splice_append(jvalue_ref array, jvalue_ref arrayToAppend, JSpliceOwnership ownership) NON_NULL(1, 2);
 
 /*** JSON String operations ***/
 /**
@@ -801,7 +801,7 @@ PJSON_API jvalue_ref jstring_empty() PURE_FUNC;
  *
  * @see jstring_get_fast
  */
-PJSON_API jvalue_ref jstring_create_copy(raw_buffer toCopy);
+PJSON_API jvalue_ref jstring_create_copy(raw_buffer str);
 
 /**
  * @brief Determine whether or not the JSON value is a string
@@ -991,7 +991,7 @@ PJSON_API bool jstring_equal2(jvalue_ref str, raw_buffer other);
  *
  * @see jnumber_create_unsafe
  */
-PJSON_API jvalue_ref jnumber_create(raw_buffer raw);
+PJSON_API jvalue_ref jnumber_create(raw_buffer str);
 
 /**
  * @brief Like jnumber_create except the provided buffer is used directly.
@@ -1001,14 +1001,14 @@ PJSON_API jvalue_ref jnumber_create(raw_buffer raw);
  * that all copies have their ownership released or no attempt is made to inspect this DOM node (converting this or any parent
  * JSON node into a string has the side-effect of causing inspection)
  *
- * @param raw The buffer to use.  Need not be null-terminated.  Must be immutable for the lifetime of all copies of
+ * @param str The buffer to use.  Need not be null-terminated.  Must be immutable for the lifetime of all copies of
  *               the created JSON reference.
  * @param strFree The deallocator to use on the string (if any) after this JSON object is freed (e.g. if you dynamically allocated
  *                the string and want this library to take care of automatically deallocating it).
  * @return The JSON number reference
  * @see jnumber_create
  */
-PJSON_API jvalue_ref jnumber_create_unsafe(raw_buffer raw, jdeallocator strFree);
+PJSON_API jvalue_ref jnumber_create_unsafe(raw_buffer str, jdeallocator strFree);
 
 /*** JSON Number operations ***/
 /**

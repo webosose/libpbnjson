@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,13 +44,13 @@ typedef struct _AdditionalFeature
 AdditionalFeature* additional_feature_new(AdditionalFeatureFunc apply_func);
 
 /** @brief Increment reference counter */
-AdditionalFeature* additional_feature_ref(AdditionalFeature *p);
+AdditionalFeature* additional_feature_ref(AdditionalFeature *a);
 
 /** @brief Decrement reference counter. Once it drops to zero, destroy the feature. */
-void additional_feature_unref(AdditionalFeature *p);
+void additional_feature_unref(AdditionalFeature *a);
 
 /** @brief Remember validator in the feature. Move semantics. */
-void additional_feature_set_validator(AdditionalFeature *p, Validator *v);
+void additional_feature_set_validator(AdditionalFeature *a, Validator *v);
 
 #ifdef __cplusplus
 }
