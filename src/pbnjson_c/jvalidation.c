@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 LG Electronics, Inc.
+// Copyright (c) 2009-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -254,24 +254,24 @@ static bool jvalue_schema_work(jvalue_ref jref, const jschema_ref schema, JError
 	return retVal;
 }
 
-bool jvalue_check_schema(jvalue_ref jref, const JSchemaInfoRef schema_info)
+bool jvalue_check_schema(jvalue_ref val, const JSchemaInfoRef schema)
 {
-	if (jref == NULL)
+	if (val == NULL)
 	{
 		return false;
 	}
 
-	if (jref->m_type != JV_OBJECT && jref->m_type != JV_ARRAY)
+	if (val->m_type != JV_OBJECT && val->m_type != JV_ARRAY)
 	{
 		return false;
 	}
 
-	if (schema_info == NULL)
+	if (schema == NULL)
 	{
 		return false;
 	}
 
-	return jvalue_schema_work(jref, schema_info->m_schema, schema_info->m_errHandler, &jvalue_check_notification);
+	return jvalue_schema_work(val, schema->m_schema, schema->m_errHandler, &jvalue_check_notification);
 }
 
 bool jvalue_validate(const jvalue_ref val, const jschema_ref schema, jerror **err)

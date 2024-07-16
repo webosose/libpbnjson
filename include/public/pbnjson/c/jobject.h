@@ -207,7 +207,7 @@ PJSON_API bool jis_null(jvalue_ref val);
  * @deprecated Use @ref jvalue_validate instead
  *
  */
-PJSON_API bool jvalue_check_schema(jvalue_ref jref, const JSchemaInfoRef schema_info) NON_NULL(1, 2);
+PJSON_API bool jvalue_check_schema(jvalue_ref val, const JSchemaInfoRef schema) NON_NULL(1, 2);
 
 /**
  * @brief Check validity of jvalue against the schema.
