@@ -24,7 +24,7 @@ set(LEMON_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/selectors_grammar_y.c)
 # ---------- FLEX LEXER GENERATOR ------------
 add_custom_command(
 	OUTPUT ${FLEX_OUTPUT}
-	COMMAND ${FLEX_EXECUTABLE} -o ${FLEX_OUTPUT}
+	COMMAND ${FLEX_EXECUTABLE} -L -o ${FLEX_OUTPUT}
 	        ${CMAKE_CURRENT_SOURCE_DIR}/selectors_grammar_l.l
 	DEPENDS ${LEMON_OUTPUT}
 	        ${CMAKE_CURRENT_SOURCE_DIR}/selectors_grammar_l.l

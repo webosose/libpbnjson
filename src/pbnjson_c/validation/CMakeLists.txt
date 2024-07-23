@@ -17,10 +17,6 @@
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
 
-set(LEMON_WITH_LINE TRUE CACHE BOOL "Strip lemon generated #line statements")
-set(LEMON_WITH_LINE_TRUE_ARGS "")
-set(LEMON_WITH_LINE_FALSE_ARGS "-l${CMAKE_CURRENT_BINARY_DIR}/json_schema_grammar.c")
-
 add_custom_target(
 	json_schema_grammar echo "Creating json_schema_grammar.c"
 	)
@@ -28,7 +24,6 @@ add_custom_target(
 add_custom_command(
 	SOURCE json_schema_grammar.y
 	COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/apply_lemon.sh
-		${LEMON_WITH_LINE_${LEMON_WITH_LINE}_ARGS}
 		${LEMON}
 		${CMAKE_CURRENT_BINARY_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}
