@@ -213,7 +213,10 @@ int dom_string(JSAXContextRef ctxt, const char *string, size_t stringLen)
 	                                    "string encountered without any context");
 
 	jvalue_ref jstr = createOptimalString(pool, data->m_optInformation, string, stringLen);
-
+	if (jstr == NULL)
+	{
+		return 0;
+	}
 	do {
 		if (data->m_value == NULL) {
 			if (data->m_prev != NULL)

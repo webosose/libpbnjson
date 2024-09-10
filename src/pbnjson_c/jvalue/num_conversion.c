@@ -651,7 +651,7 @@ ConversionResultFlags jdouble_to_i32(double value, int32_t *result)
 	}
 
 	*result = (int32_t) value;
-	if (*result != value) {
+	if (fabs(*result - value) > 1e-9) {
 		PJ_LOG_INFO("conversion of double %lf results in integer with different value", value);
 		return CONV_PRECISION_LOSS;
 	}
@@ -704,7 +704,7 @@ ConversionResultFlags jdouble_to_i64(double value, int64_t *result)
 	}
 
 	*result = (int64_t) value;
-	if (*result != value) {
+	if (fabs(*result - value) > 1e-9) {
 		PJ_LOG_INFO("conversion of double %lf results in integer with different value", value);
 		return CONV_PRECISION_LOSS;
 	}

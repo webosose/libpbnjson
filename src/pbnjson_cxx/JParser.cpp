@@ -264,8 +264,13 @@ bool JParser::begin(const JSchema &_schema, JErrorHandler *errors)
 		jsaxparser_deinit(parser);
 	else {
 		parser = jsaxparser_alloc_memory();
+		if (!parser) /* Drop when retry failed */
+		{
+			PJ_LOG_ERR("Error: Failed to allocate memory");
+			return false;
+		}
 	}
-		
+
 	schema = _schema;
 	externalRefResolver = prepareResolver();
 	errorHandler = prepareCErrorCallbacks();

@@ -21,6 +21,8 @@
 #include <JGenerator.h>
 #include <cassert>
 #include <limits>
+#include <cmath>
+#include <type_traits>
 #include "liblog.h"
 
 #ifdef DBG_CXX_MEM_STR
@@ -394,7 +396,16 @@ static bool numEqual(const JValue& jnum, const T& nativeNum)
 {
 	T num{};
 	if (jnum.asNumber(num) == CONV_OK)
-		return num == nativeNum;
+	{
+		if (std::is_integral<T>::value)
+		{
+			return num == nativeNum;
+		}
+		else
+		{
+			return std::fabs(num - nativeNum) <= std::numeric_limits<T>::epsilon();
+		}
+	}
 	return false;
 }
 

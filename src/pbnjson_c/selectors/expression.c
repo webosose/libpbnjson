@@ -17,6 +17,7 @@
 #include "expression.h"
 #include "../jobject_internal.h"
 #include <glib.h>
+#include <math.h>
 
 typedef void (*Free)(SelEx *);
 typedef jvalue_ref (*Eval)(SelEx *, jvalue_ref param);
@@ -47,7 +48,7 @@ static bool jvalue_to_bool(jvalue_ref value)
 		{
 			double ret;
 			jnumber_get_f64(value, &ret);
-			return ret != 0;
+			return fabs(ret - 0.0) > 1e-9;
 		}
 	case JV_STR:
 		return true;

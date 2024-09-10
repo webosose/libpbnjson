@@ -56,6 +56,12 @@ static bool check(Validator *v, ValidationEvent const *e, ValidationState *s, vo
 {
 	ArrayValidator *varr = (ArrayValidator *) v;
 	MyContext *my_ctxt = (MyContext *) validation_state_get_context(s);
+	if (!my_ctxt)
+	{
+		validation_state_notify_error(s, VEC_UNEXPECTED_VALUE, c);
+		validation_state_pop_validator(s);
+		return false;
+	}
 	if (!my_ctxt->has_started)
 	{
 		if (e->type != EV_ARR_START)

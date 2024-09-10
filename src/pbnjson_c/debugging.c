@@ -152,37 +152,40 @@ static void log_v(int priority, const char *fullPath, int line, const char *mess
 #define LOG_PREAMBLE "%s PBNJSON %s:%d :: "
 
 	char *pathCopy = strdup(fullPath);
-	char *path = strstr(pathCopy, "src/pbnjson_c");
-	if (!path)
-		path = pathCopy;
-	// TODO: memoize the program name string length
-	size_t messageLen = strlen(message) + strlen(path) + 4 /* line number */ + 100 /* chars for message */;
-	const char *programNameToPrint = getConsumerName_internal();
-	size_t formatLen = 0;
-	if(programNameToPrint != NULL)
+	if (pathCopy != NULL)
 	{
-		formatLen = messageLen + sizeof(LOG_PREAMBLE) + (using_terminal ? 1 : 0) + strlen(programNameToPrint);	
-	}
-	else
-	{
-		formatLen = messageLen + sizeof(LOG_PREAMBLE) + (using_terminal ? 1 : 0) ;
-	}
-	char format[formatLen];
-	snprintf(format, formatLen, LOG_PREAMBLE "%s%s", programNameToPrint, path, line, message, using_terminal ? "\n" : "");
+		char *path = strstr(pathCopy, "src/pbnjson_c");
+		if (!path)
+			path = pathCopy;
+		// TODO: memoize the program name string length
+		size_t messageLen = strlen(message) + strlen(path) + 4 /* line number */ + 100 /* chars for message */;
+		const char *programNameToPrint = getConsumerName_internal();
+		size_t formatLen = 0;
+		if(programNameToPrint != NULL)
+		{
+			formatLen = messageLen + sizeof(LOG_PREAMBLE) + (using_terminal ? 1 : 0) + strlen(programNameToPrint);
+		}
+		else
+		{
+			formatLen = messageLen + sizeof(LOG_PREAMBLE) + (using_terminal ? 1 : 0) ;
+		}
+		char format[formatLen];
+		snprintf(format, formatLen, LOG_PREAMBLE "%s%s", programNameToPrint, path, line, message, using_terminal ? "\n" : "");
 
-#if HAVE_VSYSLOG
-	if (LIKELY(!using_terminal)) {
-		vsyslog(priority, format, ap);
-	} else {
-		VFPRINTF(priority, stderr, format, ap);
-	}
-#elif HAVE_VFPRINTF
-	VFPRINTF(priority, stderr, format, ap);
-#else
-#error Logging mechanism not implemented
-#endif
+		#if HAVE_VSYSLOG
+			if (LIKELY(!using_terminal)) {
+				vsyslog(priority, format, ap);
+			} else {
+				VFPRINTF(priority, stderr, format, ap);
+			}
+		#elif HAVE_VFPRINTF
+			VFPRINTF(priority, stderr, format, ap);
+		#else
+		#error Logging mechanism not implemented
+		#endif
 
-	free(pathCopy);
+		free(pathCopy);
+	}
 }
 
 void log_info(const char *path, int line, const char *message, ...)

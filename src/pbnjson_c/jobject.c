@@ -2104,7 +2104,7 @@ ConversionResultFlags jboolean_get (jvalue_ref val, bool *value)
 			ConversionResultFlags conv_result;
 			PJ_LOG_WARN("Attempting to convert a number to a boolean - testing if number is 0");
 			conv_result = jnumber_get_f64 (val, &result);
-			if (value) *value = (conv_result == CONV_OK && result != 0);
+			if (value) *value = (conv_result == CONV_OK && fabs(result - 0.0) > 1e-9);
 			break;
 		}
 	}
